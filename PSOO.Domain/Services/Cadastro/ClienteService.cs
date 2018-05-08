@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace PSOO.Domain.Services.Cadastro
 {
-    class ClienteService
+    public class ClienteService : ServiceBase<Cliente>, IClienteService
     {
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IClienteValidator _clienteValidator;
+
+        public ClienteService(IClienteRepository clienteRepository,
+            IClienteValidator clienteValidator) : base(clienteRepository, clienteValidator)
+        {
+            _clienteRepository = clienteRepository;
+            _clienteValidator = clienteValidator;
+            _clienteValidator.SetService(this);
+        }
     }
 }
